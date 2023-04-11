@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-04-11T16:12:43.325Z</updated>
+  <updated>2023-04-11T16:20:16.843Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Linux 性能-01-test</title>
+    <title>Linux 性能-01</title>
     <link href="http://example.com/2023/04/12/11Linux%E6%80%A7%E8%83%BD-01/"/>
     <id>http://example.com/2023/04/12/11Linux%E6%80%A7%E8%83%BD-01/</id>
     <published>2023-04-12T12:50:54.000Z</published>
-    <updated>2023-04-11T16:12:43.325Z</updated>
+    <updated>2023-04-11T16:20:16.843Z</updated>
     
     <content type="html"><![CDATA[<h1 id="平均负载（Load-Average）是什么意思"><a href="#平均负载（Load-Average）是什么意思" class="headerlink" title=" 平均负载（Load Average）是什么意思"></a><span id="more"></span> 平均负载（Load Average）是什么意思</h1><p>每次发现系统变慢时，我们通常做的第一件事，就是执行 top 或者 uptime 命令，来了解系统的负载情况。比如像下面这样，我在命令行里输入了 uptime 命令，系统也随即给出了结果。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">uptime</span></span><br><span class="line">02:34:03 up 2 days, 20:14,  1 user,  load average: 0.63, 0.83, 0.88 </span><br></pre></td></tr></table></figure><p>在load average中分别是过去 1 分钟、5 分钟、15 分钟的平均负载。</p><blockquote><p>平均负载是指单位时间内，系统处于可运行状态和不可中断状态的平均进程数，也就是平均活跃进程数</p></blockquote><p>所谓可运行的进程，指的是正在使用或者正在等待CPU的进程。而平均负载可以理解为单位时间内有几个<code>活跃</code>的进程(事实上要复杂得多,实际上是活跃进程数的指数衰减平均值<del>数学差的我根本不想去理解</del>)。</p><p>那么对一个系统而言，负载高了显然是一件糟糕的事情，假如负载小于CPU的核心个数那意味着还有一些空闲，假如负载高于CPU的核心数目那意味着有些进程没法得到处理<del>that’s bad</del>。</p><h2 id="平均负载为多少时合理"><a href="#平均负载为多少时合理" class="headerlink" title="平均负载为多少时合理"></a>平均负载为多少时合理</h2><p>可以想到，假如负载刚好等于CPU个数既不会有资源的浪费也没有进程无法得到处理。</p><p>为了知道CPU的个数可以使用以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ grep <span class="string">&#x27;model name&#x27;</span> /proc/cpuinfo | <span class="built_in">wc</span> -l</span><br><span class="line">4</span><br></pre></td></tr></table></figure><p>打个比方，平均负载的值越高，表示系统中需要运行的进程越多，系统越繁忙。反之，如果平均负载较低，表示系统相对空闲。为了更好地理解这个概念，我们可以将平均负载与现实生活中的一个例子相类比：超市的排队人数。假设超市有 4 个收银台，如果排队的人数为 4，那么每个收银台都有一个顾客在结账，系统运行得比较顺畅。如果排队的人数超过 4，那么一些顾客需要等待，系统开始变得繁忙。如果排队的人数远远超过 4，那么等待时间会变得很长，系统会变得非常繁忙。</p><p>其实在先前的<code> uptime</code>命令获取到的3个时间段的负载中可以分析出不少信息：</p><ul><li>首先，假如三个时间段的数值差距不大，这说明系统负载平稳，没有什么突发的进程。</li><li>假如1分钟的数值远小于15分钟的值，这说明在15分钟内有很高的负载，但在最近一分钟开始降低负载。</li><li>相反，假如1分钟的数值远大于15分钟的值，那说明最近系统负载正在上升。</li></ul><p>这时候我们也会疑惑，当平均负载高于多少时应该做出行动，网上的建议是平均负载超出CPU最大负载的70%的时候应该排查一下问题，因为此时就可能影响服务的正常运行。但更合适的做法是联系起系统的长期负载，进行更深层次的分析后再做出处理。</p><h2 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cpu核数: lscpu、 grep <span class="string">&#x27;model name&#x27;</span> /proc/cpuinfo | <span class="built_in">wc</span> -l</span><br><span class="line"></span><br><span class="line">显示平均负载：<span class="built_in">uptime</span>、top，显示的顺序是最近1分钟、5分钟、15分钟，从此可以看出平均负载的趋势</span><br><span class="line"></span><br><span class="line">watch -d <span class="built_in">uptime</span>: -d会高亮显示变化的区域</span><br><span class="line"></span><br><span class="line">strees: 压测命令，--cpu cpu压测选项，-i io压测选项，-c 进程数压测选项，--<span class="built_in">timeout</span> 执行时间</span><br><span class="line"></span><br><span class="line">mpstat: 多核cpu性能分析工具，-P ALL监视所有cpu</span><br><span class="line"></span><br><span class="line">pidstat:  进程性能分析工具，-u 显示cpu利用率</span><br></pre></td></tr></table></figure><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>平均负载指的是：单位时间内，系统中处于可运行状态和不可中断状态的平均进程数。</p>]]></content>
     
