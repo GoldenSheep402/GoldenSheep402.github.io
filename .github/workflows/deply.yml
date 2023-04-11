@@ -1,0 +1,17 @@
+name: deply
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: delpy
+    runs-on: ubuntu-latest
+    steps:
+      - name: clone pages
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWD }}
+          script: cd /var/www && git pull
