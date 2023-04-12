@@ -4,8 +4,8 @@ on:
         branches:
             - master
 jobs:
-    build:
-        name: delpy
+    deply:
+        name: auto delpy
         runs-on: ubuntu-latest
         steps:
             - name: clone pages
