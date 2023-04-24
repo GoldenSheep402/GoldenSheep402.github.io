@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>汇编语言 Assembly 基础知识 - 金羊的部落阁</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="金羊的部落阁"><meta name="msapplication-TileImage" content="https://thirdqq.qlogo.cn/g?b=sdk&amp;k=4vMtghkUUYLCic2AIic86lzQ&amp;s=640"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="金羊的部落阁"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="汇编语言是一种低级计算机编程语言，它是直接操纵计算机的机器指令。每条指令代表一项特定的操作，例如加法、移位或者跳转。因为汇编语言是非常底层的，所以它的代码速度非常快，并且可以直接与硬件交互。本文就介绍一些基本知识"><meta property="og:type" content="blog"><meta property="og:title" content="汇编语言 Assembly 基础知识"><meta property="og:url" content="http://example.com/2023/04/24/16-Assembly/01-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><meta property="og:site_name" content="金羊的部落阁"><meta property="og:description" content="汇编语言是一种低级计算机编程语言，它是直接操纵计算机的机器指令。每条指令代表一项特定的操作，例如加法、移位或者跳转。因为汇编语言是非常底层的，所以它的代码速度非常快，并且可以直接与硬件交互。本文就介绍一些基本知识"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/Clover/1.png"><meta property="article:published_time" content="2023-04-24T02:50:54.000Z"><meta property="article:modified_time" content="2023-04-24T14:51:04.242Z"><meta property="article:author" content="Golden Sheep"><meta property="article:tag" content="汇编"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/Clover/1.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/04/24/16-Assembly/01-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"},"headline":"汇编语言 Assembly 基础知识","image":["https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/Clover/1.png"],"datePublished":"2023-04-24T02:50:54.000Z","dateModified":"2023-04-24T14:51:04.242Z","author":{"@type":"Person","name":"Golden Sheep"},"publisher":{"@type":"Organization","name":"金羊的部落阁","logo":{"@type":"ImageObject","url":{"text":"GS's Blog"}}},"description":"汇编语言是一种低级计算机编程语言，它是直接操纵计算机的机器指令。每条指令代表一项特定的操作，例如加法、移位或者跳转。因为汇编语言是非常底层的，所以它的代码速度非常快，并且可以直接与硬件交互。本文就介绍一些基本知识"}</script><link rel="canonical" href="http://example.com/2023/04/24/16-Assembly/01-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"><link rel="alternate" href="/atom.xml" title="金羊的部落阁" type="application/atom+xml"><link rel="icon" href="https://thirdqq.qlogo.cn/g?b=sdk&amp;k=4vMtghkUUYLCic2AIic86lzQ&amp;s=640"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">GS&#039;s Blog</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" href="/archives/">归档</a><a class="navbar-item" href="/categories/">分类</a><a class="navbar-item" href="/tags/">标签</a><a class="navbar-item" href="/M2B/">书影音</a><a class="navbar-item" href="/links/">友链</a><a class="navbar-item" href="/about/">关于</a></div><div class="navbar-end"><a class="navbar-item night" id="night-nav" href="javascript:;"><i class="fas fa-sun" id="night-icon"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/Clover/1.png" alt="汇编语言 Assembly 基础知识"></span></div><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2023-04-24T02:50:54.000Z" title="2023/4/24 10:50:54">2023-04-24</time>发表</span><span class="level-item"><time dateTime="2023-04-24T14:51:04.242Z" title="2023/4/24 22:51:04">2023-04-24</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%B1%87%E7%BC%96/">汇编</a><span> / </span><a class="link-muted" href="/categories/%E6%B1%87%E7%BC%96/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">汇编语言 Assembly 基础知识</h1><div class="content"><blockquote>
+<p>汇编语言是一种低级计算机编程语言，它是直接操纵计算机的机器指令。每条指令代表一项特定的操作，例如加法、移位或者跳转。因为汇编语言是非常底层的，所以它的代码速度非常快，并且可以直接与硬件交互。本文就介绍一些基本知识</p>
+</blockquote>
+<h1 id="一些应该知道的知识"><a href="#一些应该知道的知识" class="headerlink" title=" 一些应该知道的知识"></a><span id="more"></span> 一些应该知道的知识</h1><blockquote>
+<p>首先汇编是直接运行在硬件上的语言，这就意味着需要了解硬件系统的组成和结构才能有效地使用汇编进行编程。</p>
+</blockquote>
+<h2 id="机器语言"><a href="#机器语言" class="headerlink" title="机器语言"></a>机器语言</h2><p>汇编语言并不是一开始就出现的语言，在它之前首先是机器语言(当然还有最早时期的纸带)。电子计算机中的机器语言是一系列二进制数据(这些数据遵循相关约定从而代表不同操作，因此不同处理器的机器语言也一般是不同的)。</p>
+<p>在现在的计算机中，完成这些操作的芯片是我们常说的CPU(Central Processing Unit),它是一种微处理器，而计算机也就是由CPU以及一系列可以被间接或者直接控制的器件组成的计算机系统。</p>
+<p>而不同处理器由于硬件设计和内部结构的不同，所以要使用不同的电平控制处理器执行操作，这也就意味着不同处理器有不同机器指令集(比如:Intel x86,ARM,MIPS…)等等。</p>
+<p>以下是一个8086CPU输出Hello Assembly的机器语言示例:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">10110100 00000010 00110000 11111111</span><br><span class="line">00110000 11110110 00110000 11010010</span><br><span class="line">11001101 00010000 10001101 00110110</span><br><span class="line">00100100 00000001 10101100 00111100</span><br><span class="line">00100100 01110100 00001000 10110100</span><br><span class="line">00001110 00110000 11111111 11001101</span><br><span class="line">00010000 11101011 11110011 10110100</span><br><span class="line">00000000 11001101 00010110 11001101</span><br><span class="line">00100000 00100000 00000000 01001000</span><br><span class="line">01100101 01101100 01101100 01101111</span><br><span class="line">00100000 01000001 01110011 01110011</span><br><span class="line">01100101 01101101 01100010 01101100</span><br><span class="line">01111001 00100100</span><br></pre></td></tr></table></figure>
+
+<p>假如你看到这样一行代码，任何让你去里面找一个bug，是不是很抓狂(这时候就很佩服那些用纸带的先辈了)。</p>
+<h2 id="汇编语言的产生"><a href="#汇编语言的产生" class="headerlink" title="汇编语言的产生"></a>汇编语言的产生</h2><p><del>众所周知，程序员是一群很懒的群体</del>，当他们发现使用机器语言去编码是多么的折磨人后，于是就有了汇编语言。(<del>懒才是发展的动力</del>)</p>
+<p>汇编指令与机器指令的区别在表示方式之上，汇编大大提高了记忆的可能性。</p>
+<p>比如:<code>1000100111011000</code>代表把BX寄存器的数据放到AX中，而汇编只需要写成<code>mov ax,bx</code>。前者不去看约定根本无法理解这究竟实在干什么，而后者就大大简化了理解难度，甚至在字面就能看出来大致意思。</p>
+<p>然而汇编语言还是与机器语言不同，汇编要是直接丢给计算机看的话，它肯定无法理解这些是什么意思，因为计算机只能理解1和0组成的数据，因此就有一个叫做编译器的翻译程序，通过它能把易于人类阅读的汇编语言翻译成计算机看得懂的机器语言。</p>
+<h3 id="汇编语言的基本组成"><a href="#汇编语言的基本组成" class="headerlink" title="汇编语言的基本组成"></a>汇编语言的基本组成</h3><ul>
+<li>汇编指令: 指的是机器指令的助记符，对应了真正的机器码</li>
+<li>伪指令:  不是真正的指令，但可以在汇编器中被识别和处理。通常用于控制汇编器的行为或定义程序的一些属性，例如程序的起始位置、程序的长度和数据的存储方式等。</li>
+<li>其他符合: 一些操作符，由编译器识别</li>
+</ul>
+<blockquote>
+<p>而汇编语言的核心是汇编指令(其实就像是语法一样)</p>
+</blockquote>
+<h2 id="计算机的结构"><a href="#计算机的结构" class="headerlink" title="计算机的结构"></a>计算机的结构</h2><h3 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h3><p>想要CPU正常得工作，就必须给它提供指令和数据。指令和数据存放在存储器中，也就是常说的内存。因此在一台计算机中内存的重要性仅次于CPU，没有内存CPU无法得到它需要的指令自然无法正常工作。而磁盘的任何数据都要先读入内存才能被CPU获取。</p>
+<h3 id="指令与数据"><a href="#指令与数据" class="headerlink" title="指令与数据"></a>指令与数据</h3><p>指令与数据本质上没有差别，只是指令能够告诉CPU如何处理，在存储器中，他们没有任何区别，都只是由1和0组成的二进制数据。因此在逆向中可以直接往内存中写入一些非法的数据达到获取权限。</p>
+<h3 id="存储单元"><a href="#存储单元" class="headerlink" title="存储单元"></a>存储单元</h3><p>存储器被被划分成多个存储单元，而存储单元由0开始。</p>
+<p>电子计算机的最小信息单位是bit，也就是一位，而8个bit组成一个Byte(字节)。而电子计算机的存储器中的每一个单元可以存储一个字节(1 Byte）。</p>
+<blockquote>
+<p>1KB&#x3D;1024B  1MB&#x3D;1024KB  1GB&#x3D;1024MB  1TB&#x3D;1024GB  1PB&#x3D;1024TB </p>
+</blockquote>
+<h3 id="CPU对数据读写"><a href="#CPU对数据读写" class="headerlink" title="CPU对数据读写"></a>CPU对数据读写</h3><p>既然存储器被划分成由0开始编号的多个单元，这就像是门牌一样，通过相应的门牌可以找到对应数据的所在地。</p>
+<p>所以当CPU需要去读取数据的时候，首先要知道的是数据的所在地，也就是那个门牌号。同时，由于在计算机中可不只只有一个存储器而是由多种设备共同组成的，因此需要告诉CPU对于的设备编号，就像你知道了门牌号也得知道是在那个小区吧。</p>
+<p>因此，CPU想要对数据进行读写，必须得到三类数据</p>
+<ul>
+<li>设备选择，读或写(控制信息)</li>
+<li>存储单元的信息(地址信息)</li>
+<li>读或写的数据(数据信息)</li>
+</ul>
+<p>那么CPU是如何将这三类数据传入存储器芯片中的呢？计算机中由专门连接CPU和其他芯片的导线，通常被称为总线。物理上来说就是一堆线，但是根据功能上分类总共有三种，即地址总线、控制总线、数据总线。</p>
+<p><img src="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/16-Assembly/%E6%80%BB%E7%BA%BF.jpg" alt="总线"></p>
+<ol>
+<li>CPU先通过地址总线发出地址信息</li>
+<li>CPU通过控制线发出内存读取指令，告诉存储器芯片需要读取数据</li>
+<li>存储器芯片将3号单元中的08数据送入数据总线给到CPU</li>
+</ol>
+<blockquote>
+<p>写数据也是相似的过程</p>
+</blockquote>
+<h3 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h3><h4 id="地址总线"><a href="#地址总线" class="headerlink" title="地址总线"></a>地址总线</h4><p>地址总线是用于定位存储器上的存储单元的，因此地址总线上内传入多少数据意味着CPU能对多少数据进行定位，也就是CPU的寻址能力。</p>
+<blockquote>
+<p>这让我想起当时使用xp的时候，由于系统是32位，而CPU是64位，因此系统最大只能识别4GB内存，所以当时用了Ramdisk使用超出那4GB的内存空间。</p>
+</blockquote>
+<p>拿现在常用的64位处理器举例，它有64根地址线也就意味着拥有<code>2^64</code>的寻址能力也就是定位<code>2^64</code>个存储单元也就是16384 PB。</p>
+<p><img src="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/16-Assembly/%E5%9C%B0%E5%9D%80%E6%80%BB%E7%BA%BF.jpg" alt="地址总线"></p>
+<p>假如一个CPU有N根地址线，那就可以说它的地址总线宽度是N,同时寻址能力是<code>2^N</code>。</p>
+<h4 id="数据总线"><a href="#数据总线" class="headerlink" title="数据总线"></a>数据总线</h4><p>数据总线是CPU与其他器件进行数据传输的桥梁，数据总线的宽度决定了CPU传输数据的速度。比如一个8位的数据总线能一次传输8位二进制数据，也就是一个字节。</p>
+<p><img src="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/16-Assembly/%E6%95%B0%E6%8D%AE%E6%80%BB%E7%BA%BF.jpg" alt="数据总线"></p>
+<h4 id="控制总线"><a href="#控制总线" class="headerlink" title="控制总线"></a>控制总线</h4><p>控制总线是负责控制外部器件的，但这并不是一根线，而是一系列控制线的集合。它代表了CPU对外界的控制能力。</p>
+<h1 id="关键"><a href="#关键" class="headerlink" title="关键"></a>关键</h1><ul>
+<li>不同CPU有对应的不同汇编指令集</li>
+<li>指令和数据本质没有任何区别</li>
+<li>存储单元由0开始编号</li>
+<li>一个存储单元存储8bit也就是一个字节</li>
+<li>地址线代表了寻址能力</li>
+<li>数据线代表了传输能力</li>
+<li>控制线代表了控制能力</li>
+</ul>
+</div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/%E6%B1%87%E7%BC%96/">汇编</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2023/04/24/16-Assembly/02-%E5%AF%84%E5%AD%98%E5%99%A8/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">汇编语言 Assembly 寄存器</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/04/22/%E6%8A%80%E5%B7%A7/01-LatexInHexo/"><span class="level-item">在Hexo中使用Latex渲染问题的解决办法</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#一些应该知道的知识"><span class="level-left"><span class="level-item">1</span><span class="level-item"> 一些应该知道的知识</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#机器语言"><span class="level-left"><span class="level-item">1.1</span><span class="level-item">机器语言</span></span></a></li><li><a class="level is-mobile" href="#汇编语言的产生"><span class="level-left"><span class="level-item">1.2</span><span class="level-item">汇编语言的产生</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#汇编语言的基本组成"><span class="level-left"><span class="level-item">1.2.1</span><span class="level-item">汇编语言的基本组成</span></span></a></li></ul></li><li><a class="level is-mobile" href="#计算机的结构"><span class="level-left"><span class="level-item">1.3</span><span class="level-item">计算机的结构</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#存储器"><span class="level-left"><span class="level-item">1.3.1</span><span class="level-item">存储器</span></span></a></li><li><a class="level is-mobile" href="#指令与数据"><span class="level-left"><span class="level-item">1.3.2</span><span class="level-item">指令与数据</span></span></a></li><li><a class="level is-mobile" href="#存储单元"><span class="level-left"><span class="level-item">1.3.3</span><span class="level-item">存储单元</span></span></a></li><li><a class="level is-mobile" href="#CPU对数据读写"><span class="level-left"><span class="level-item">1.3.4</span><span class="level-item">CPU对数据读写</span></span></a></li><li><a class="level is-mobile" href="#总线"><span class="level-left"><span class="level-item">1.3.5</span><span class="level-item">总线</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#关键"><span class="level-left"><span class="level-item">2</span><span class="level-item">关键</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-04-24T12:40:54.000Z">2023-04-24</time></p><p class="title"><a href="/2023/04/24/16-Assembly/02-%E5%AF%84%E5%AD%98%E5%99%A8/">汇编语言 Assembly 寄存器</a></p><p class="categories"><a href="/categories/%E6%B1%87%E7%BC%96/">汇编</a> / <a href="/categories/%E6%B1%87%E7%BC%96/%E5%AF%84%E5%AD%98%E5%99%A8/">寄存器</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-04-24T02:50:54.000Z">2023-04-24</time></p><p class="title"><a href="/2023/04/24/16-Assembly/01-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">汇编语言 Assembly 基础知识</a></p><p class="categories"><a href="/categories/%E6%B1%87%E7%BC%96/">汇编</a> / <a href="/categories/%E6%B1%87%E7%BC%96/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">基础知识</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-04-22T02:55:54.000Z">2023-04-22</time></p><p class="title"><a href="/2023/04/22/%E6%8A%80%E5%B7%A7/01-LatexInHexo/">在Hexo中使用Latex渲染问题的解决办法</a></p><p class="categories"><a href="/categories/%E6%8A%80%E5%B7%A7/">技巧</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-04-20T02:55:54.000Z">2023-04-20</time></p><p class="title"><a href="/2023/04/20/12-Matlab/data-analize/">MATLAB Matrix Analysis</a></p><p class="categories"><a href="/categories/MATLAB/">MATLAB</a> / <a href="/categories/MATLAB/Matrix-Analysis/">Matrix Analysis</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2023-04-15T02:50:54.000Z">2023-04-15</time></p><p class="title"><a href="/2023/04/15/13-RFID/00-RFID%E4%BB%8B%E7%BB%8D/">RFID 技术介绍</a></p><p class="categories"><a href="/categories/RFID/">RFID</a></p></div></article></div></div><div class="column-right-shadow is-hidden-widescreen is-sticky"></div></div><div class="column column-right is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only order-3 is-sticky"><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Container/"><span class="tag">Container</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Docker/"><span class="tag">Docker</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Github/"><span class="tag">Github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Linux/"><span class="tag">Linux</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/MATLAB/"><span class="tag">MATLAB</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/RFID/"><span class="tag">RFID</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Rust/"><span class="tag">Rust</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Web/"><span class="tag">Web</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/game/"><span class="tag">game</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/go/"><span class="tag">go</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tag">博客</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/"><span class="tag">性能调优</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%8A%80%E5%B7%A7/"><span class="tag">技巧</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="tag">数据库</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%B1%87%E7%BC%96/"><span class="tag">汇编</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%94%B5%E5%BD%B1/"><span class="tag">电影</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E7%BD%91%E7%9B%98%E6%8C%82%E8%BD%BD/"><span class="tag">网盘挂载</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2/"><span class="tag">自动部署</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%89%B4%E6%9D%83/"><span class="tag">鉴权</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E8%AE%B0/"><span class="tag">随记</span><span class="tag">3</span></a></div></div></div></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2023/04/"><span class="level-start"><span class="level-item">四月 2023</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/03/"><span class="level-start"><span class="level-item">三月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2023/01/"><span class="level-start"><span class="level-item">一月 2023</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/12/"><span class="level-start"><span class="level-item">十二月 2022</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="/archives/2022/11/"><span class="level-start"><span class="level-item">十一月 2022</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li></ul></div></div></div></div></div></div></section><script type="text/javascript" color="30,144,255" opacity="0.5" zIndex="-1" count="150" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/">GS&#039;s Blog</a><p class="is-size-7"><span>&copy; 2023 Golden Sheep</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/mhchem.min.js" defer></script><script>window.addEventListener("load", function() {
+            document.querySelectorAll('[role="article"] > .content').forEach(function(element) {
+                renderMathInElement(element);
+            });
+        });</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script src="/js/night.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
