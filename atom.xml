@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-04-27T02:23:32.660Z</updated>
+  <updated>2023-05-24T11:01:13.144Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux下lvm卷扩容</title>
+    <link href="http://example.com/2023/05/24/%E6%8A%80%E5%B7%A7/02-lvmResize/"/>
+    <id>http://example.com/2023/05/24/%E6%8A%80%E5%B7%A7/02-lvmResize/</id>
+    <published>2023-05-24T10:55:54.000Z</published>
+    <updated>2023-05-24T11:01:13.144Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Linux下lvm卷扩容"><a href="#Linux下lvm卷扩容" class="headerlink" title=" Linux下lvm卷扩容"></a><span id="more"></span> Linux下lvm卷扩容</h1><p>事情的起因是这样的，我购置了一台主机打算放在寝室作为服务器使用，作为服务器自然需要使用Linux，最终我决定使用fedora server，而系统盘则是使用了三星的pm981，很顺利，系统也部署好了，但在服务与工具链都部署完成后，我发现在安装系统的一开始没有把全部容量分配给根目录，因此根目录只有16g的可用空间，这让我感到异常不爽，因此决定在不破坏系统的情况下扩容。</p><p>在使用<code>lsblk</code>查看后，发现是lvm类型的文件系统，这就意味着扩容变得简单。</p><blockquote><p>逻辑卷管理器（Logical Volume Manager）</p><p>利用Linux内核中的device-mapper实现存储系统的虚拟化。也就意味着可以在物理硬盘卷宗基础上虚拟出一个存储系统，这就极大得方便了硬盘资源的管理，可以不用考虑物理逻辑卷究竟是否连续，可以将物理层面上不连续的文件系统视为一个使用。</p></blockquote><ul><li>首先第一步是操作是扩展逻辑卷</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lvetend -l + 100%FREE /dev/fedora_gshome/root  <span class="comment"># 后面跟的路径是我想要扩容的卷宗</span></span><br></pre></td></tr></table></figure><p><img src="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/2023-5/lvm/Snipaste_2023-05-21_22-15-54.png"></p><ul><li>第二步是调整文件系统</li></ul><p>很显然我第一次尝试失败了，想当然得使用了ext4系统的调整命令</p><p><img src="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/2023-5/lvm/Snipaste_2023-05-21_22-15-46.png"></p><p>因此再次通过<code>df -T</code>查看卷宗的类型，发现是xfs系统</p><p><img src="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/2023-5/lvm/Snipaste_2023-05-21_22-15-59.png"></p><p>那就很简单了，调整一下命令，改用xfs系统的<code>xfs_growfs</code>即可</p><p><img src="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/2023-5/lvm/Snipaste_2023-05-21_22-15-08.png"></p><p>最后再次运行<code>lsblk</code>，很顺利，系统已经占据了ssd全部内容</p><p>总结一下lvm扩容的流程·</p><ol><li>可以使用<code>vps</code>命令查看卷组情况</li><li>如果有空余的空间，就可以使用<code>vgextend</code>把物理卷加入卷组</li><li>扩展逻辑卷，可以使用<code>lvextend</code>命令扩展具体的逻辑卷。指定逻辑卷的名称以及要添加的容量大小，可以使用绝对大小（如GB）或相对大小（如+10G）。</li><li>调整文件系统，这要视情况而定，不同系统类型使用不同的命令。</li></ol><blockquote><p>ext*   resize2fx</p><p>xfs    xfs_growfs</p></blockquote>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;Linux下lvm卷扩容&quot;&gt;&lt;a href=&quot;#Linux下lvm卷扩容&quot; class=&quot;headerlink&quot; title=&quot; Linux下lvm卷扩容&quot;&gt;&lt;/a&gt;</summary>
+    
+    
+    
+    <category term="技巧" scheme="http://example.com/categories/%E6%8A%80%E5%B7%A7/"/>
+    
+    <category term="Linux" scheme="http://example.com/categories/%E6%8A%80%E5%B7%A7/Linux/"/>
+    
+    
+    <category term="Linux" scheme="http://example.com/tags/Linux/"/>
+    
+    <category term="技巧" scheme="http://example.com/tags/%E6%8A%80%E5%B7%A7/"/>
+    
+  </entry>
   
   <entry>
     <title></title>
@@ -441,27 +466,6 @@
     
     
     <summary type="html">&lt;h1 id=&quot;Rust-函数&quot;&gt;&lt;a href=&quot;#Rust-函数&quot; class=&quot;headerlink&quot; title=&quot;Rust 函数&quot;&gt;&lt;/a&gt;</summary>
-    
-    
-    
-    <category term="Rust" scheme="http://example.com/categories/Rust/"/>
-    
-    
-    <category term="Rust" scheme="http://example.com/tags/Rust/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rust-note-02数据类型</title>
-    <link href="http://example.com/2022/12/04/07-RUST/07-RUST02%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://example.com/2022/12/04/07-RUST/07-RUST02%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</id>
-    <published>2022-12-04T04:50:01.000Z</published>
-    <updated>2023-01-30T08:54:44.078Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a><span id="more"></span>数据类型</h1><ul><li>标量和复合类型</li><li>Rust是静态编译语言，在编译的同时必须知道所有变量的类型<ul><li>基于使用的值，编译器通常能够推断出它的具体类型</li><li>但如果可能的类型太多（例如将string转换为整数的parse方法），就必须添加类型的标注</li></ul></li></ul><h2 id="标量类型"><a href="#标量类型" class="headerlink" title="标量类型"></a>标量类型</h2><ul><li>一个标量代表一个单一的值</li><li>Rust有四个主要的标量类型：<ul><li>整数类型</li><li>浮点类型</li><li>布尔类型</li><li>字符类型</li></ul></li></ul><blockquote><h3 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h3></blockquote><ul><li>就是个整数</li><li>例如u32是一个无符号整数类型，占据32位空间</li><li>无符号用u开头</li></ul><p><img src="/img/2022-12/07-RUST/02%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/type-pic.png" alt="type-pic"></p><blockquote><h3 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h3></blockquote><ul><li>Rust有两种基础的浮点类型<ul><li>f32</li><li>f64</li></ul></li><li>Rust的浮点类型使用了IEEE-754标注来表述</li><li>f64是默认类型，因为在现代CPU上f64和f32速度差不多，且精度更高</li></ul><blockquote><h3 id="布尔类型"><a href="#布尔类型" class="headerlink" title="布尔类型"></a>布尔类型</h3></blockquote><ul><li>true 和 false 两个值</li><li>一个字节</li><li>符号是bool</li></ul><blockquote><h3 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h3></blockquote><ul><li>Rust中的char类型用来表示最基础的单个字符</li><li>字符类型的字面值使用单引号</li><li>占用4个字节</li><li>使用Unicode编码</li></ul><h2 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h2><blockquote><h3 id="Tuple"><a href="#Tuple" class="headerlink" title="Tuple"></a>Tuple</h3></blockquote><ul><li>可以使用模式匹配来解构一个Tuple来获取值</li></ul><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">tup</span>: (<span class="type">i32</span>, <span class="type">f64</span>, <span class="type">u8</span>) = (<span class="number">500</span>, <span class="number">6.4</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">let</span> (x, y, z) = tup;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;, &#123;&#125;, &#123;&#125;&quot;</span>, x, y, z);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>访问Tuple的元素</p><ul><li>在Tuple变量使用点标记，后接元素索引</li></ul><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">tup</span>: (<span class="type">i32</span>, <span class="type">f64</span>, <span class="type">u8</span>) = (<span class="number">500</span>, <span class="number">6.4</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;, &#123;&#125;, &#123;&#125;&quot;</span>, tup.<span class="number">0</span>, tup.<span class="number">1</span>, tup.<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3></blockquote><ul><li>声明方法：在一个中括号中，各值用逗号分隔</li></ul><h4 id="数组的用处"><a href="#数组的用处" class="headerlink" title="数组的用处"></a>数组的用处</h4><ul><li>如果想让数据存放在stack中而不是heap上，或者想保证有固定数量的元素，这时使用数组更有好处</li><li>数组没有Vector灵活<ul><li>Vector和数组类似，它由标准库提供</li><li>Vector的长度可以改变</li></ul></li></ul><h4 id="数组的类型"><a href="#数组的类型" class="headerlink" title="数组的类型"></a>数组的类型</h4><ul><li><h2 id="数组的类型可以以这种形式表示：-类型-长度-let-a-i32-5-x3D-1-2-3-4-5"><a href="#数组的类型可以以这种形式表示：-类型-长度-let-a-i32-5-x3D-1-2-3-4-5" class="headerlink" title="数组的类型可以以这种形式表示：[类型; 长度]- let a[i32;5] &#x3D; [1,2,3,4,5];"></a>数组的类型可以以这种形式表示：[类型; 长度]<br>- let a[i32;5] &#x3D; [1,2,3,4,5];</h2></li></ul><h4 id="另一种声明数组的方法"><a href="#另一种声明数组的方法" class="headerlink" title="另一种声明数组的方法"></a>另一种声明数组的方法</h4><ul><li>如果数组的每个元素值都相同，那么可以在：<ul><li>在中括号中指定初始值</li><li>然后是一个 ;</li><li>最后是数组长度</li></ul></li><li>let a[3;5]; 等价于 let a &#x3D; [3,3,3,3,3];</li><li></li></ul><h4 id="访问数组的元素"><a href="#访问数组的元素" class="headerlink" title="访问数组的元素"></a>访问数组的元素</h4><ul><li>数组是Stack上分配的单个块的内存</li><li>可以使用索引</li></ul><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">months</span> = [</span><br><span class="line">        <span class="string">&quot;Jan&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Feb&quot;</span>, </span><br><span class="line">        <span class="string">&quot;Mar&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Apr&quot;</span>,</span><br><span class="line">        <span class="string">&quot;May&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Jun&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Jul&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Aug&quot;</span>, </span><br><span class="line">        <span class="string">&quot;Sep&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Oct&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Nov&quot;</span>, </span><br><span class="line">        <span class="string">&quot;Dec&quot;</span></span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">first</span> = months[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">second</span> = months[<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>如果访问的索引超出了数组的范围，那么：</p><ul><li>编译会通过</li><li>运行保存（runtime时panic）</li><li>Rust不会允许其访问相应地址的内存</li></ul></blockquote>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;数据类型&quot;&gt;&lt;a href=&quot;#数据类型&quot; class=&quot;headerlink&quot; title=&quot;数据类型&quot;&gt;&lt;/a&gt;</summary>
     
     
     
