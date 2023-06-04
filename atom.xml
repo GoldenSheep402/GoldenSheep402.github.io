@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-05-24T11:01:13.144Z</updated>
+  <updated>2023-06-04T14:52:41.305Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TryHackMe | Advent of Cyber 2022 [Day 9]</title>
+    <link href="http://example.com/2023/06/04/14-REDTEAM/01Metasploit/"/>
+    <id>http://example.com/2023/06/04/14-REDTEAM/01Metasploit/</id>
+    <published>2023-06-04T12:55:54.000Z</published>
+    <updated>2023-06-04T14:52:41.305Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="我与Metasploit的第一次见面"><a href="#我与Metasploit的第一次见面" class="headerlink" title="我与Metasploit的第一次见面"></a><span id="more"></span>我与Metasploit的第一次见面</h1><p>说起Metasploit，我第一次看到这个工具是在初中的时候，不过那只是在瞎倒腾Kali的时候看到的，也不知道这东西是干啥用的，由于一系列学业原因，也就没有深入下去(Too young too simple)~</p><h2 id="Metasploit是什么"><a href="#Metasploit是什么" class="headerlink" title="Metasploit是什么?"></a>Metasploit是什么?</h2><blockquote><p>Metasploit is a powerful penetration testing tool for gaining initial access to systems, performing post-exploitation, and pivoting to other applications and systems. Metasploit is free, open-source software owned by the US-based cybersecurity firm Rapid7.</p></blockquote><h2 id="Metasploit能干什么？"><a href="#Metasploit能干什么？" class="headerlink" title="Metasploit能干什么？"></a>Metasploit能干什么？</h2><p>作为一个渗透工具，Metasploit提供了许多可利用的模块已经payload生成功能，总而言之大大简化了渗透测试的复杂度。</p><h2 id="Metasploit的基础使用"><a href="#Metasploit的基础使用" class="headerlink" title="Metasploit的基础使用"></a>Metasploit的基础使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Get information about the remote system, such as OS</span></span><br><span class="line">sysinfo</span><br><span class="line"></span><br><span class="line"><span class="comment"># Upload a file or directory</span></span><br><span class="line">upload local_file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display interfaces</span></span><br><span class="line">ipconfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># Resolve a set of host names on the target to IP addresses - useful for pivoting</span></span><br><span class="line">resolve remote_service1 remote_service2</span><br><span class="line"></span><br><span class="line"><span class="comment"># Background the current session</span></span><br><span class="line">background </span><br><span class="line"></span><br><span class="line"><span class="comment"># List all background sessions</span></span><br><span class="line">sessions -l </span><br><span class="line"></span><br><span class="line"><span class="comment"># Upgrade Metasploit session to a Meterpreter session </span></span><br><span class="line">sessions -u INDEX</span><br><span class="line"></span><br></pre></td></tr></table></figure><h1 id="Pivoting"><a href="#Pivoting" class="headerlink" title="Pivoting"></a>Pivoting</h1><p>在这个task中介绍了Pivoting这个概念，这个的意思是跳板，相当于在获取了一部机器的权限后，可以以它为跳板，透过它去渗透别的机器，就像是一个中枢一样。</p><h1 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h1><p>第一步自然是运行Metasplot，由于我使用的是Arch而不是Kali，那首先要安装它(Arch真香)</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yay metasplot</span><br></pre></td></tr></table></figure><p>假如你用的就是Kali，那么直接运行就好了</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ msfconsole</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;我与Metasploit的第一次见面&quot;&gt;&lt;a href=&quot;#我与Metasploit的第一次见面&quot; class=&quot;headerlink&quot; title=&quot;我与Metasploit的第一次见面&quot;&gt;&lt;/a&gt;</summary>
+    
+    
+    
+    <category term="RedTeam" scheme="http://example.com/categories/RedTeam/"/>
+    
+    <category term="Penetration" scheme="http://example.com/categories/RedTeam/Penetration/"/>
+    
+    
+    <category term="RedTeam" scheme="http://example.com/tags/RedTeam/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux下lvm卷扩容</title>
@@ -445,27 +468,6 @@
     
     
     <summary type="html">&lt;h1 id=&quot;一-什么是所有权&quot;&gt;&lt;a href=&quot;#一-什么是所有权&quot; class=&quot;headerlink&quot; title=&quot;一.什么是所有权&quot;&gt;&lt;/a&gt;</summary>
-    
-    
-    
-    <category term="Rust" scheme="http://example.com/categories/Rust/"/>
-    
-    
-    <category term="Rust" scheme="http://example.com/tags/Rust/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rust-note-03函数</title>
-    <link href="http://example.com/2022/12/04/07-RUST/07-RUST03%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B3%A8%E9%87%8A/"/>
-    <id>http://example.com/2022/12/04/07-RUST/07-RUST03%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B3%A8%E9%87%8A/</id>
-    <published>2022-12-04T04:50:02.000Z</published>
-    <updated>2023-01-30T08:54:46.677Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Rust-函数"><a href="#Rust-函数" class="headerlink" title="Rust 函数"></a><span id="more"></span>Rust 函数</h1><h2 id="基本形式"><a href="#基本形式" class="headerlink" title="基本形式"></a>基本形式</h2><blockquote><p>fn &lt;函数名&gt; ( &lt;参数&gt; ) &lt;函数体&gt;</p></blockquote><h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>()&#123;</span><br><span class="line">    <span class="title function_ invoke__">another_function</span>(<span class="number">5</span>, <span class="number">6</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">another_function</span>(x: <span class="type">i32</span>, y: <span class="type">i32</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;x 的值为 : &#123;&#125;&quot;</span>, x);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;y 的值为 : &#123;&#125;&quot;</span>, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>x 的值为 : 5<br>y 的值为 : 6</p></blockquote><h2 id="函数体的语句与表达式"><a href="#函数体的语句与表达式" class="headerlink" title="函数体的语句与表达式"></a>函数体的语句与表达式</h2><p>Rust 的函数体由以表达式(expression)结尾的语句(statement)组成</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">y</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="variable">x</span> = <span class="number">3</span>;</span><br><span class="line">        x + <span class="number">1</span>     <span class="comment">// 这是一个表达式，它的值是整个函数的的结果值</span></span><br><span class="line">                  <span class="comment">// 被叫做函数体表达式(后面不能有;有的话就是一条statement)</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;x 的值为 : &#123;&#125;&quot;</span>, x);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;y 的值为 : &#123;&#125;&quot;</span>, y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>x 的值为 : 5<br>y 的值为 : 4</p></blockquote><h2 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h2><ul><li>在-&gt;符号后面声明函数的返回值类型，但不可为返回值命名</li><li>在Rust中，返回值是函数体中最后一个表达式的值</li><li>若需要提前返回，使用return关键字，并指定一个值<ul><li>大部分函数都是默认使用最后一个表达式作为返回的值</li></ul></li></ul><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">five</span>() <span class="punctuation">-&gt;</span> <span class="type">i32</span> &#123;</span><br><span class="line">    <span class="number">5</span> <span class="comment">//返回值就是5</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;Rust-函数&quot;&gt;&lt;a href=&quot;#Rust-函数&quot; class=&quot;headerlink&quot; title=&quot;Rust 函数&quot;&gt;&lt;/a&gt;</summary>
     
     
     
