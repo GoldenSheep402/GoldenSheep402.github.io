@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-07-16T13:51:30.141Z</updated>
+  <updated>2023-08-09T03:20:32.335Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://example.com/2023/07/15/17-travel/01-%E6%96%B0%E7%96%86/"/>
     <id>http://example.com/2023/07/15/17-travel/01-%E6%96%B0%E7%96%86/</id>
     <published>2023-07-15T04:40:54.000Z</published>
-    <updated>2023-07-16T13:51:30.141Z</updated>
+    <updated>2023-08-09T03:20:32.335Z</updated>
     
     <content type="html"><![CDATA[<p>凌晨3点出发，额，睡了一天，晚上9点30抵达河南兰考。摆了，懒得写，后面有好看的贴点图。</p>]]></content>
     
@@ -40,6 +40,36 @@
     
     
     <category term="新疆" scheme="http://example.com/tags/%E6%96%B0%E7%96%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>禾木夜拍</title>
+    <link href="http://example.com/2023/07/15/17-travel/02-%E7%A6%BE%E6%9C%A8/"/>
+    <id>http://example.com/2023/07/15/17-travel/02-%E7%A6%BE%E6%9C%A8/</id>
+    <published>2023-07-15T04:40:54.000Z</published>
+    <updated>2023-08-09T03:20:06.270Z</updated>
+    
+    <content type="html"><![CDATA[<p>打算拍星轨的，但是发现把快门线搞丢了，手动拍了几十张，后半夜是在太冷就睡觉去了，贴个半成品图。<br><img src="https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/2023-7/travel/%E6%98%9F%E8%BD%A8.png" alt="星轨"><br>还有些没处理</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;打算拍星轨的，但是发现把快门线搞丢了，手动拍了几十张，后半夜是在太冷就睡觉去了，贴个半成品图。&lt;br&gt;&lt;img src=&quot;https://cdn.staticaly.com/gh/GoldenSheep402/picx-images-hosting@master/Blog/</summary>
+      
+    
+    
+    
+    <category term="旅行" scheme="http://example.com/categories/%E6%97%85%E8%A1%8C/"/>
+    
+    <category term="新疆" scheme="http://example.com/categories/%E6%97%85%E8%A1%8C/%E6%96%B0%E7%96%86/"/>
+    
+    <category term="星空" scheme="http://example.com/categories/%E6%97%85%E8%A1%8C/%E6%96%B0%E7%96%86/%E6%98%9F%E7%A9%BA/"/>
+    
+    
+    <category term="新疆" scheme="http://example.com/tags/%E6%96%B0%E7%96%86/"/>
+    
+    <category term="星空" scheme="http://example.com/tags/%E6%98%9F%E7%A9%BA/"/>
     
   </entry>
   
@@ -453,27 +483,6 @@
     
     
     <summary type="html">&lt;h1 id=&quot;一-结构&quot;&gt;&lt;a href=&quot;#一-结构&quot; class=&quot;headerlink&quot; title=&quot; 一.结构&quot;&gt;&lt;/a&gt;</summary>
-    
-    
-    
-    <category term="Rust" scheme="http://example.com/categories/Rust/"/>
-    
-    
-    <category term="Rust" scheme="http://example.com/tags/Rust/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rust-note-05切片</title>
-    <link href="http://example.com/2022/12/04/07-RUST/07-RUST05%E5%88%87%E7%89%87/"/>
-    <id>http://example.com/2022/12/04/07-RUST/07-RUST05%E5%88%87%E7%89%87/</id>
-    <published>2022-12-04T12:50:54.000Z</published>
-    <updated>2023-01-30T08:53:26.510Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="一-Rust-Slice"><a href="#一-Rust-Slice" class="headerlink" title="一.Rust Slice"></a><span id="more"></span>一.Rust Slice</h1><p>切片（Slice）是对数据值的部分引用。</p><h2 id="字符串切片"><a href="#字符串切片" class="headerlink" title="字符串切片"></a>字符串切片</h2><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">s</span> = <span class="type">String</span>::<span class="title function_ invoke__">from</span>(<span class="string">&quot;broadcast&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">part1</span> = &amp;s[<span class="number">0</span>..<span class="number">5</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">part2</span> = &amp;s[<span class="number">5</span>..<span class="number">9</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;=&#123;&#125;+&#123;&#125;&quot;</span>, s, part1, part2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>broadcast&#x3D;broad+cast</p></blockquote><p><img src="/img/2022-12/07-RUST/slice/rust-slice1.png" alt="slice"></p><p>x..y &#x3D;&#x3D; [x,y)</p><blockquote><p>..y 等价于 0..y<br>x.. 等价于位置 x 到数据结束<br>.. 等价于位置 0 到结束</p></blockquote><h2 id="非字符串切片"><a href="#非字符串切片" class="headerlink" title="非字符串切片"></a>非字符串切片</h2><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">arr</span> = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">part</span> = &amp;arr[<span class="number">0</span>..<span class="number">3</span>];</span><br><span class="line">    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> part.<span class="title function_ invoke__">iter</span>() &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>1</p><p>2</p><p>3</p></blockquote>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;一-Rust-Slice&quot;&gt;&lt;a href=&quot;#一-Rust-Slice&quot; class=&quot;headerlink&quot; title=&quot;一.Rust Slice&quot;&gt;&lt;/a&gt;</summary>
     
     
     
